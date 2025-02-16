@@ -1,0 +1,88 @@
+#root {
+  /* max-width: 1280px; */
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+.discount{
+  position: absolute;
+  color: black;
+  background: yellow;
+  border-radius: 25%;
+  border: 2px solid rgb(121, 121, 7);
+
+}
+.product{
+  background-color: antiquewhite;
+}
+.product1{
+  background-color: rgb(138, 83, 83);
+  }
+  .product:hover{
+    background-color: rgb(233, 208, 162);
+    transform: scale(1.01);
+  }
+  .logobtn{
+    background-color: rgb(255, 255, 255) ;
+    border: none;
+    padding: 50px;
+    justify-content: start;
+
+  }
+  .logobtn img{
+    width: 100px;
+    height: auto;
+  }
+.image-container{
+  position: relative;
+}
+.myborder{
+  border: 2px black solid;
+}
+.cart{
+  width: 200px;
+  justify-content: center;
+  background-color: none;
+}
+.cartbtn{
+background-color: none;
+}
+/* .img{
+  width: 25%;
+} */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
