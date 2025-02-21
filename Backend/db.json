@@ -47,6 +47,20 @@
       "email": "rutik@gmail.com",
       "password": "12345",
       "role": "user"
+    },
+    {
+      "id": "e552",
+      "UserName": "yash",
+      "email": "yash@gmail.com",
+      "password": "77777",
+      "role": "user"
+    },
+    {
+      "id": "4de8",
+      "UserName": "",
+      "email": "",
+      "password": "",
+      "role": "user"
     }
   ],
   "fruits": [

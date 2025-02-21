@@ -1,4 +1,5 @@
 import { useState } from "react";
+import NavBar from "./NavBar";
 
 export default function SignUpPage(props) {
   let { signupStatus } = props;
@@ -39,7 +40,7 @@ export default function SignUpPage(props) {
                 <label htmlFor="">UserName:</label>
               </div>
               <div className="col-6 text-start">
-                <input type="text" name="UserName" />
+                <input type="text" placeholder="Username" name="UserName" />
               </div>
             </div>
 
@@ -48,7 +49,7 @@ export default function SignUpPage(props) {
                 <label htmlFor="">EmailId:</label>
               </div>
               <div className="col-6 text-start">
-                <input type="email" name="email" />
+                <input type="email" placeholder="email-id" name="email" />
               </div>
             </div>
 
@@ -57,11 +58,42 @@ export default function SignUpPage(props) {
                 <label htmlFor="">Password:</label>
               </div>
               <div className="col-6 text-start">
-                <input type="password" name="password" />
+                <input type="password" placeholder="password" name="password" />
               </div>
               <div className=" offset-6 col-6 text-start">
-                <button className="btn btn-danger mx-2">Submit</button>
-                <button className="btn btn-danger">Clear</button>
+                <input
+                  type="submit"
+                  className="my-2 mx-2"
+                  style={{
+                    backgroundColor: "#007bff",
+                    color: "white",
+                    padding: "10px 20px",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    transition: "0.3s",
+                    boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)",
+                  }}
+                />
+                <input
+                  type="reset"
+                  style={{
+                    backgroundColor: "#007bff",
+                    color: "white",
+                    padding: "10px 20px",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    transition: "0.3s",
+                    boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)",
+                  }}
+                />
+                {/* <button className="btn btn-danger mx-2">Submit</button>
+                <button className="btn btn-danger">Clear</button> */}
               </div>
             </div>
           </form>

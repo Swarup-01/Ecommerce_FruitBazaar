@@ -12,6 +12,8 @@ export function Ecom() {
   let [cnt, setCnt] = useState(0);
   let [CartItems, setCartItems] = useState([]);
   let [totalprice, setTotalPrice] = useState(0);
+  let [successmessage, setSuccessMessage] = useState(false);
+  // let [islogin, setIsLogin] = useState(loginStatus=="success");
   // let [Dprice,setDprice] = useState(0)
 
   let pList = [
@@ -261,8 +263,7 @@ export function Ecom() {
     console.log("ok");
     console.log(user);
     setUser(user);
-    
-    
+
     checkUser(user);
 
     async function checkUser(props) {
@@ -275,11 +276,19 @@ export function Ecom() {
         setLoginStatus("success");
         setUser(filteredData[0]);
         // addDataToServer(user)
+        setSuccessMessage(true);
+
+        setTimeout(() => {
+          setSuccessMessage(false);
+          console.log("Login Successful");
+          setTimeout(() => {
+            setView("product");
+          }, 1000);
+        }, 1000);
       } else {
         setLoginStatus("failed");
       }
     }
-    setView("product");
   }
 
   // async function addDataToServer(user) {
@@ -291,6 +300,7 @@ export function Ecom() {
   function handleCartItems(view) {
     console.log("Cart button clicked");
     setView("cart");
+    console.log(CartItems.length);
   }
 
   //Handle Add to cart operation
@@ -374,9 +384,18 @@ export function Ecom() {
   //Sign_UP & Login Button Handle
   function handleFormButtonClick(view) {
     console.log(view);
-    
-
     setView(view);
+  }
+
+  //handle logout button clicked
+  function handleLogoutClick() {
+    setUser(null); // Clear user data
+    setView("product");
+    setLoginStatus("no"); // Reset login status
+    setSignupStatus("no"); // Reset signup status (if needed)
+    setMessage(""); // Clear any messages
+
+    //  setView("Login");
   }
 
   // login click button after signup form
@@ -395,6 +414,8 @@ export function Ecom() {
           cnt={cnt}
           totalprice={totalprice}
           cItems={CartItems}
+          user={user}
+          onLogoutClick={handleLogoutClick}
         />
         {view == "SignUp" && (
           <SignUpPage
@@ -413,7 +434,6 @@ export function Ecom() {
             user={user}
             view={view}
             onLoginClick={handleLoginClick}
-            // onSignUpClick={handleSignUpClick}
           />
         )}
         {view == "product" && (
@@ -425,7 +445,9 @@ export function Ecom() {
             onDecrement={handleDecrement}
           />
         )}
-        {view == "cart" && <CartPage onCartItems={handleCartItems} />}
+        {view == "cart" && (
+          <CartPage onCartItems={handleCartItems} CartItems={CartItems}  />
+        )}
       </div>
     </>
   );
