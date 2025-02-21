@@ -3,21 +3,33 @@ import React, { useState } from "react";
 
 export default function Product(props) {
   let { p } = props;
-  let {cItems} = props;
+  let { cItems } = props;
 
   let Dprice = p.mrp - p.discount * 0.01 * p.mrp;
- 
-  function handleAddButtonClick(action) {
- props.onAddButtonClick(p,action);
- console.log(p);
- }
-   
+
+  // function handleAddButtonClick(action) {
+  //   props.onAddButtonClick(p, action);
+  //   console.log(p);
+  // }
+  function handleAddToCart(){
+    props.onAddToCart(p)
+
+  }
+  function handleIncrement(){
+    props.onIncrement(p)
+
+  }
+  function handleDecrement(){
+     props.onDecrement(p)
+
+  }
+
 
   return (
     <>
       {
-        <div className=" col-3 text-center mx-auto p-2 my-2">
-          <div className="myborder p-3 product">
+        <div className=" col-12 col-sm-6 col-md-4 col-lg-3 text-center mx-auto p-2 my-2 ">
+          <div className="myborder p-3 product1">
             {p.discount > 0 && (
               <div className="discount p-2"> {p.discount}%</div>
             )}
@@ -47,16 +59,14 @@ export default function Product(props) {
             <p>In Stock: {p.inStock ? "Yes" : "No"}</p>
 
             {p.qty == 0 && p.inStock && (
-             
               <button
-                className="btn btn-danger"
+                className="btn btn-success"
                 onClick={() => {
-                  handleAddButtonClick("+");
+                  handleAddToCart(p);
                 }}
               >
                 Add To Cart
               </button>
-              
             )}
             {!p.inStock && (
               <button className="btn btn-secondary">Out Of Stock</button>
@@ -65,19 +75,18 @@ export default function Product(props) {
             {p.qty != 0 && (
               <div className="text-center mx-auto">
                 <button
-                  className="btn btn-danger"
-                
+                  className="btn btn-success"
                   onClick={() => {
-                    handleAddButtonClick("+");
+                    handleIncrement(p);
                   }}
                 >
                   +
                 </button>{" "}
                 {p.qty}
                 <button
-                  className="btn btn-danger"
+                  className="btn btn-success"
                   onClick={() => {
-                    handleAddButtonClick("-");
+                    handleDecrement(p);
                   }}
                 >
                   -

@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductPage from "./ProductPage";
 import NavBar from "./NavBar";
 import SignUpPage from "./SignUpPage";
 import LoginPage from "./LoginPage";
 import Product from "./Product";
+import CartPage from "./CartPage";
+import axios from "axios";
 
 export function Ecom() {
   let [view, setView] = useState("product");
   let [cnt, setCnt] = useState(0);
-  let [CartItems, SetCartItems] = useState([]);
+  let [CartItems, setCartItems] = useState([]);
   let [totalprice, setTotalPrice] = useState(0);
   // let [Dprice,setDprice] = useState(0)
 
@@ -207,85 +209,223 @@ export function Ecom() {
   ];
   let [FilteredList, setFilteredList] = useState(pList);
   let [productList, setProductList] = useState(pList);
-  
+  let [signupStatus, setSignupStatus] = useState("no");
+  let [loginStatus, setLoginStatus] = useState("no");
+  let [message, setMessage] = useState("");
+  let [target, setTarget] = useState("");
+  let [user, setUser] = useState("");
 
-  function handleAddButtonClick(p, action) {
-    // addtocart
+  //  useEffect(() => {
+  //    //code... get data from backend
+  //    addDataToServer(user);
+  //  }, []);
+
+  //Sign-up operations...
+  function handleSignupFormSubmit(event) {
+    let formData = new FormData(event.target);
+    let user = {};
+    for (let data of formData) {
+      user[data[0]] = data[1];
+    }
+    user["role"] = "user";
+    console.log(user);
+    checkUserExists(user);
+  }
+
+  async function checkUserExists(user) {
+    let response = await axios("http://localhost:3000/users");
+    let data = await response.data;
+    let filteredData = data.filter((e, index) => e.email == user.email);
+    if (filteredData.length >= 1) {
+      console.log("Already Exists");
+      setSignupStatus("failed");
+      setMessage("Sorry... This email-id is already registered.");
+    } else {
+      console.log("new user");
+      addUser(user);
+      // addDataToServer(user)
+    }
+  }
+  async function addUser(user) {
+    let response = await axios.post("http://localhost:3000/users", user);
+    setSignupStatus("success");
+  }
+
+  //Login Operation
+  function handleLoginFormSubmit(event) {
+    let formData = new FormData(event.target);
+    let user = {};
+    for (let data of formData) {
+      user[data[0]] = data[1];
+    }
+    console.log("ok");
+    console.log(user);
+    setUser(user);
+    
+    
+    checkUser(user);
+
+    async function checkUser(props) {
+      let response = await axios("http://localhost:3000/users");
+      let data = await response.data;
+      let filteredData = data.filter(
+        (e, index) => e.email == user.email && e.password == user.password
+      );
+      if (filteredData.length == 1) {
+        setLoginStatus("success");
+        setUser(filteredData[0]);
+        // addDataToServer(user)
+      } else {
+        setLoginStatus("failed");
+      }
+    }
+    setView("product");
+  }
+
+  // async function addDataToServer(user) {
+  //   let response = await axios("http://localhost:3000/users",user);
+  //   console.log(response.data);
+
+  // }
+
+  function handleCartItems(view) {
+    console.log("Cart button clicked");
+    setView("cart");
+  }
+
+  //Handle Add to cart operation
+  function handleAddToCart(p) {
+    console.log(CartItems);
+
     let temp = [...productList];
     let index = temp.indexOf(p);
-    let Tprice = 0;
-    //  cItems.push(p);
-    //  SetCartItems(cItems);
-    if (action == "+") {
-      temp[index].qty++;
-      setProductList(temp);
+    let newProduct = { ...temp[index] };
+
+    if (newProduct.qty === 0) {
+      newProduct.qty++;
       setCnt(cnt + 1);
-    } else if (action == "-") {
-      temp[index].qty--;
-      setProductList(temp);
-      setCnt(cnt - 1);
-    }
+      temp[index] = newProduct;
+      setProductList([...temp]);
 
-    let cItems = [...CartItems];
-    // whenever +,- clicked
-    if (p.qty == 0) {
-      cItems = cItems.filter((e, index) => e.id != p.id);
-      SetCartItems(cItems);
+      setCartItems([...CartItems, newProduct]);
+      setTotalPrice(
+        totalprice + newProduct.mrp * (1 - newProduct.discount / 100)
+      );
+    }
+    let updatedCart;
+    if (CartItems && CartItems.length > 0) {
+      updatedCart = [...CartItems];
     } else {
-      if (p.qty == 1) {
-        cItems.push(p);
-      } else {
-        cItems = cItems.map((e, index) => {
-          if (e.id == p.id) {
-            return p;
-          } else {
-            return e;
-          }
-        });
-      }
+      updatedCart = [];
+    }
+    updatedCart.push(newProduct);
+    setCartItems(updatedCart);
+  }
+  //Handle "+"
+  function handleIncrement(p) {
+    let temp = [...productList];
+    let index = temp.indexOf(p);
+    let newProduct = { ...temp[index] };
+    newProduct.qty++;
+    temp[index] = newProduct;
+    setProductList([...temp]);
+
+    //Update Cart Items and total price
+    let updatedCart = CartItems.map((item) =>
+      item.id === p.id ? { ...item, qty: item.qty + 1 } : item
+    );
+    setCartItems(updatedCart);
+
+    setTotalPrice(totalprice + p.mrp * (1 - p.discount / 100));
+    console.log(updatedCart);
+  }
+  //Handle "-"
+  function handleDecrement(p) {
+    let temp = [...productList];
+    let index = temp.indexOf(p);
+    let newProduct = { ...temp[index] };
+    newProduct.qty--;
+    temp[index] = newProduct;
+    setProductList([...temp]);
+
+    let updatedCart;
+    console.log(updatedCart);
+
+    if (newProduct.qty === 0) {
+      setCnt(cnt - 1); // Reduce cart count
+      updatedCart = CartItems.filter((item) => item.id !== p.id); // Remove item from cart
+    } else {
+      updatedCart = CartItems.map((item) =>
+        item.id === p.id ? { ...item, qty: item.qty - 1 } : item
+      );
     }
 
-    SetCartItems(cItems);
-    if (cItems.length != 0) {
-      for (let i = 0; i < cItems.length; i++) {
-        Tprice =
-          Tprice +
-          (cItems[i].mrp - cItems[i].discount * 0.01 * cItems[i].mrp) *
-            cItems[i].qty;
-        console.log(Tprice);
-      }
-    } 
-    else 
-    { Tprice = 0;}
-    setTotalPrice(Tprice);
-  }
-  
+    setCartItems(updatedCart);
 
+    // If cart is empty, reset total price to 0
+    if (updatedCart.length === 0) {
+      setTotalPrice(0);
+    } else {
+      setTotalPrice(totalprice - p.mrp * (1 - p.discount / 100));
+    }
+    console.log(updatedCart);
+  }
+
+  //Sign_UP & Login Button Handle
   function handleFormButtonClick(view) {
+    console.log(view);
+    
+
     setView(view);
   }
 
-   
+  // login click button after signup form
+  function handleLoginClick(event) {
+    setView(event);
+    // setView("product");
+    console.log(view);
+  }
 
   return (
     <>
       <div className="content-page ">
         <NavBar
           onFormButtonClick={handleFormButtonClick}
+          onCartItems={handleCartItems}
           cnt={cnt}
           totalprice={totalprice}
           cItems={CartItems}
-          
         />
-        {view == "SignUp" && <SignUpPage onClick={handleFormButtonClick} />}
-        {view == "Login" && <LoginPage onClick={handleFormButtonClick} />}
+        {view == "SignUp" && (
+          <SignUpPage
+            onClick={handleFormButtonClick}
+            onSignupFormSubmit={handleSignupFormSubmit}
+            view={view}
+            signupStatus={signupStatus}
+            onLoginClick={handleLoginClick}
+          />
+        )}
+        {view == "Login" && (
+          <LoginPage
+            onClick={handleFormButtonClick}
+            loginStatus={loginStatus}
+            onLoginFormSubmit={handleLoginFormSubmit}
+            user={user}
+            view={view}
+            onLoginClick={handleLoginClick}
+            // onSignUpClick={handleSignUpClick}
+          />
+        )}
         {view == "product" && (
           <ProductPage
             productList={productList}
             onFormButtonClick={handleFormButtonClick}
-            onAddButtonClick={handleAddButtonClick}
+            onAddToCart={handleAddToCart}
+            onIncrement={handleIncrement}
+            onDecrement={handleDecrement}
           />
         )}
+        {view == "cart" && <CartPage onCartItems={handleCartItems} />}
       </div>
     </>
   );

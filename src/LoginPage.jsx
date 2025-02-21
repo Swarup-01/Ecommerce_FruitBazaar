@@ -1,33 +1,62 @@
-export default function LoginPage() {
+export default function LoginPage(props) {
+  let {loginStatus} = props;
+  let {user} = props;
+  
+  
+  
+  function handleLoginFormSubmit(event){
+    event.preventDefault();
+    props.onLoginFormSubmit(event);
+    console.log(user);
+    
+    
+    
+  }
+ 
   return (
     <>
-      <div className="row signup-container">
-        <form action="">
-          <h2> Welcome To Login Form</h2>
+      {loginStatus == "success" && (
+        <div className="text-center text-danger">
+          Login Successfull....welcome {user.name}
+         
+        </div>
+      )}
 
-          <div className="row">
-            <div className="col-6 text-end">
-              <label htmlFor="">EmailId:</label>
-            </div>
-            <div className="col-6 text-start">
-              <input type="email" />
-            </div>
-          </div>
+      {loginStatus == "failed" && (
+        <div className="text-center text-danger">
+          Sorry... Wrong Credentials
+        </div>
+      )}
 
-          <div className="row">
-            <div className="col-6 text-end">
-              <label htmlFor="">Password:</label>
+      {(loginStatus == "failed" || loginStatus == "no") && (
+        <div className="row login-container">
+          <form action="" onSubmit={handleLoginFormSubmit}>
+            <h2> Welcome To Login Form</h2>
+
+            <div className="row">
+              <div className="col-6 text-end my-2">
+                <label htmlFor="">EmailId:</label>
+              </div>
+              <div className="col-6 text-start my-2">
+                <input type="email" name="email" />
+              </div>
             </div>
-            <div className="col-6 text-start">
-              <input type="password" />
+
+            <div className="row">
+              <div className="col-6 text-end">
+                <label htmlFor="">Password:</label>
+              </div>
+              <div className="col-6 text-start">
+                <input type="password" name="password" />
+              </div>
+              <div className=" offset-6 col-6 text-start">
+                <button className="btn btn-danger mx-2">Ok</button>
+                <button className="btn btn-danger my-3">Clear</button>
+              </div>
             </div>
-            <div className=" offset-6 col-6 text-start">
-              <button className="btn btn-danger">Ok</button>
-              <button className="btn btn-danger">Clear</button>
-            </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      )}
     </>
   );
 }

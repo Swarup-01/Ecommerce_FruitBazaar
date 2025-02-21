@@ -14,15 +14,18 @@
 
 }
 .product{
-  background-color: antiquewhite;
+  background-color: rgb(243, 216, 216);
 }
-.product1{
-  background-color: rgb(138, 83, 83);
+.product1:hover{
+  background-color: #ea6969;
+  transform: scale(1.03);
+  border-radius: 30px;
+
   }
-  .product:hover{
+  /* .product:hover{
     background-color: rgb(233, 208, 162);
     transform: scale(1.01);
-  }
+  } */
   .logobtn{
     background-color: rgb(255, 255, 255) ;
     border: none;
@@ -30,6 +33,15 @@
     justify-content: start;
 
   }
+.cartbtn{
+  background-color: rgb(243, 216, 216);
+  color: black;
+}
+.bi:hover{
+  background-color:  #ea6969;
+  border-radius: 10px;
+  transform: scale(1.05);
+}
   .logobtn img{
     width: 100px;
     height: auto;

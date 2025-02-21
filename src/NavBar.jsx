@@ -7,6 +7,7 @@ export default function NavBar(props) {
      let {cnt}=props;
      let {p} = props;
      let {totalprice} = props
+     let {view} = props;
 
      let {cItems} = props;
      console.log(cItems[0]);
@@ -24,12 +25,15 @@ export default function NavBar(props) {
         props.onFormButtonClick(view);
 
 }
+function handleCartItems(){
+  props.onCartItems(view)
+}
     
     
   return (
     <>
-      <div className="row myborder align-items-center">
-        <div className="col-2 myborder">
+      <div className="row myborder align-items-center ">
+        <div className="col-2">
           <button
             className="logobtn "
             onClick={() => handleFormButtonClick("product")}
@@ -37,7 +41,7 @@ export default function NavBar(props) {
             <img src="./shop_logo.jpg" alt="shopLogo" />
           </button>
         </div>
-        <div className="col-8 myborder justify-content-center my-5">
+        <div className=" col-sm-12 col-lg-8 justify-content-center my-5 ">
           <button
             className="btn btn-primary m-2 "
             onClick={() => {
@@ -55,13 +59,13 @@ export default function NavBar(props) {
             Login
           </button>
         </div>
-        <div className="col-2 cart myborder">
-        
-                <div className="cartbtn">
-             <i className="bi bi-cart3 fs-1 " >{cItems.length}</i>
+        <div className=" cart col-sm-12 col-lg-1 ">
+          <div className="cartbtn">
+            <button className="cartbtn" onClick={()=>{handleCartItems("cart")}}>
+              <i className="bi bi-cart3 fs-1 ">{cnt}</i>
+            </button>
             <div className="text-center">Rs. {totalprice}</div>
-             </div>
-            
+          </div>
         </div>
       </div>
 
