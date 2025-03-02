@@ -10,7 +10,7 @@ export default function LoginPage(props) {
 
   return (
     <>
-      {loginStatus == "success" && (
+      {/* {loginStatus == "success" && (
         <div className="text-center text-danger">
           <h3>Login Successful...</h3>
           <h3>Welcome {user.UserName}, Start Shopping!!!</h3>
@@ -21,7 +21,7 @@ export default function LoginPage(props) {
         <div className="text-center text-danger">
           Sorry... Wrong Credentials
         </div>
-      )}
+      )} */}
 
       {(loginStatus == "failed" || loginStatus == "no") && (
         <div className="row login-container">
@@ -33,7 +33,7 @@ export default function LoginPage(props) {
                 <label htmlFor="">Username:</label>
               </div>
               <div className="col-6 text-start my-2">
-                <input type="name" name="UserName" />
+                <input type="name" name="UserName" placeholder="username" />
               </div>
             </div>
             <div className="row">
@@ -41,20 +41,20 @@ export default function LoginPage(props) {
                 <label htmlFor="">EmailId:</label>
               </div>
               <div className="col-6 text-start my-2">
-                <input type="email" name="email" />
+                <input type="email" name="email" placeholder="email" />
               </div>
             </div>
 
             <div className="row">
-              <div className="col-6 text-end">
+              <div className="col-6 text-end my-2">
                 <label htmlFor="">Password:</label>
               </div>
-              <div className="col-6 text-start">
-                <input type="password" name="password" />
+              <div className="col-6 text-start my-2">
+                <input type="password" name="password" placeholder="password" />
               </div>
               <div className=" offset-6 col-6 text-start">
                 <input
-                  type="submit" 
+                  type="submit"
                   className="my-2 mx-2"
                   style={{
                     backgroundColor: "#007bff",

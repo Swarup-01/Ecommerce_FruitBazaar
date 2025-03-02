@@ -10,9 +10,17 @@
   color: black;
   background: yellow;
   border-radius: 25%;
+  padding: 5px 10px; /* Adds spacing inside the tag */
+  font-weight: bold;
+  font-size: 14px;
+  z-index: 10; 
   border: 2px solid rgb(121, 121, 7);
-
 }
+.image-container{
+  position: relative;
+  display: inline-block;
+}
+
 .product{
   background-color: rgb(243, 216, 216);
 }
@@ -31,16 +39,27 @@
     border: none;
     padding: 50px;
     justify-content: start;
-
-  }
-.cartbtn{
-  background-color: rgb(243, 216, 216);
-  color: black;
 }
-.bi:hover{
+.cartbtn{
+  background-color: white;
+  color: black;
+  border: none;
+
+}
+.cartbtn:hover{
+transform: scale(1.07);
+}
+
+
+/* .bi:hover{
   background-color:  #ea6969;
   border-radius: 10px;
   transform: scale(1.05);
+} */
+
+.button{
+  background-color: white;
+  color: black;
 }
   .logobtn img{
     width: 100px;

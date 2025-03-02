@@ -2,15 +2,18 @@ import { useState } from "react";
 
 export default function NavBar(props) {
   //  let [View, setView] = useState("Product");
+  
   let { cnt } = props;
   let { p } = props;
   let { totalprice } = props;
   let { view } = props;
   let { user } = props;
+  let {loginStatus} = props;
+  let {cartmessage} = props;
 
   let { cItems } = props;
   //  console.log(cItems[0]);
-  console.log(totalprice);
+  //console.log(totalprice);
 
   //  for(let i=0; i<cItems.length ; i++){
   //     totalprice = totalprice + cItems[i].qty * cItems[i].mrp;
@@ -22,8 +25,8 @@ export default function NavBar(props) {
     props.onFormButtonClick(view);
   }
   function handleCartItems() {
-    props.onCartItems(view);
-  }
+    props.onCartItems();
+   }
   function handleLogoutClick(){
     props.onLogoutClick()
   }
@@ -39,15 +42,46 @@ export default function NavBar(props) {
             <img src="./shop_logo.jpg" alt="shopLogo" />
           </button>
         </div>
-        <div className=" col-sm-12 col-lg-8 justify-content-center my-5 ">
 
+        {/* login success message */}
+        <div className="col-2">
+          {loginStatus == "success" && (
+            <div className="text-center text-dark">
+              Welcome <h1>{user.UserName} </h1> start shopping...
+            </div>
+          )}
+
+          {loginStatus == "failed" && (
+            <div className="text-center text-danger">
+              Sorry... Wrong Credentials
+            </div>
+          )}
+
+          {cartmessage && (
+            <div className="text-danger text-center ">
+              {cartmessage}
+            </div>
+          )}
+        </div>
+
+        <div className=" col-sm-12 col-lg-6 justify-content-center my-5">
           {/* if user is filled its information successfully then show them logout button for exit */}
           {user ? (
             <button
               className="btn btn-primary m-2"
-              onClick= {
-                handleLogoutClick
-              }
+              style={{
+                backgroundColor: "#007bff",
+                color: "white",
+                padding: "10px 20px",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                fontSize: "16px",
+                fontWeight: "bold",
+                transition: "0.3s",
+                boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)",
+              }}
+              onClick={handleLogoutClick}
             >
               Logout
             </button>
@@ -55,15 +89,36 @@ export default function NavBar(props) {
             <>
               <button
                 className="btn btn-primary m-2 "
+                style={{
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  transition: "0.3s",
+                  boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)",
+                }}
                 onClick={() => {
                   handleFormButtonClick("SignUp");
                 }}
               >
                 SignUp
               </button>
-
               <button
                 className="btn btn-primary m-2"
+                style={{
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  transition: "0.3s",
+                  boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)",
+                }}
                 onClick={() => {
                   handleFormButtonClick("Login");
                 }}
@@ -73,8 +128,8 @@ export default function NavBar(props) {
             </>
           )}
         </div>
-        <div className=" cart col-sm-12 col-lg-1 ">
-          <div className="cartbtn">
+        <div className=" cart col-sm-12 col-lg-1">
+          <div className="">
             <button
               className="cartbtn"
               onClick={() => {

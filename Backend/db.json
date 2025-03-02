@@ -5,7 +5,7 @@
       "name": "Rutuja",
       "email": "rutuja04dabhade@gmail.com",
       "password": "1234",
-      "role": "admin"
+      "role": "user"
     },
     {
       "id": "2",
@@ -15,17 +15,11 @@
       "role": "user"
     },
     {
-      "id": "3e27",
-      "name": "Chetana Patil",
-      "email": "chetanap2005@gmail.com",
-      "password": "1234"
-    },
-    {
       "id": "bb52",
       "UserName": "swarup",
       "email": "swarup@gmail.com",
       "password": "11111",
-      "role": "user"
+      "role": "admin"
     },
     {
       "id": "0dd9",
@@ -61,6 +55,34 @@
       "email": "",
       "password": "",
       "role": "user"
+    },
+    {
+      "id": "6af1",
+      "UserName": "swarupg",
+      "email": "sg@gmail.com",
+      "password": "1412",
+      "role": "user"
+    },
+    {
+      "id": "3a63",
+      "UserName": "aabcd",
+      "email": "abcd@gmail.com",
+      "password": "12345",
+      "role": "user"
+    },
+    {
+      "id": "5c90",
+      "UserName": "patil",
+      "email": "patil@gmail.com",
+      "password": "12345",
+      "role": "user"
+    },
+    {
+      "id": "a934",
+      "UserName": "tejas",
+      "email": "tejasss@gmail.com",
+      "password": "77777",
+      "role": "user"
     }
   ],
   "fruits": [
@@ -80,8 +102,8 @@
       "name": "Mango",
       "image": "mango.jpg",
       "unit": "doz",
-      "mrp": 500,
-      "discount": 8,
+      "mrp": "450",
+      "discount": "10",
       "inStock": true,
       "qty": 0,
       "type": "Organic"
@@ -91,8 +113,8 @@
       "name": "Banana",
       "image": "banana.jpg",
       "unit": "doz",
-      "mrp": 60,
-      "discount": 0,
+      "mrp": "50",
+      "discount": "10",
       "inStock": true,
       "qty": 0,
       "type": "Non-Organic"
@@ -272,6 +294,30 @@
       "inStock": true,
       "qty": 0,
       "type": "Non-Organic"
+    },
+    {
+      "id": "080f",
+      "name": "papaya",
+      "mrp": "350",
+      "discount": "10"
+    },
+    {
+      "id": "7c59",
+      "name": "ramfaal",
+      "mrp": "200",
+      "discount": "10"
+    },
+    {
+      "id": "db44",
+      "name": "ramfaal",
+      "mrp": "200",
+      "discount": "12"
+    },
+    {
+      "id": "db44",
+      "name": "ramfaal",
+      "mrp": "200",
+      "discount": "12"
     }
   ]
 }

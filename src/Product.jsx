@@ -29,7 +29,7 @@ export default function Product(props) {
     <>
       {
         <div className=" col-12 col-sm-6 col-md-4 col-lg-3 text-center mx-auto p-2 my-2 ">
-          <div className="myborder p-3 product1">
+          <div className=" p-3 product1">
             {p.discount > 0 && (
               <div className="discount p-2"> {p.discount}%</div>
             )}
@@ -61,6 +61,17 @@ export default function Product(props) {
             {p.qty == 0 && p.inStock && (
               <button
                 className="btn btn-success"
+                style={{
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  transition: "0.3s",
+                  boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)",
+                }}
                 onClick={() => {
                   handleAddToCart(p);
                 }}
@@ -69,13 +80,39 @@ export default function Product(props) {
               </button>
             )}
             {!p.inStock && (
-              <button className="btn btn-secondary">Out Of Stock</button>
+              <button
+                className="btn btn-secondary"
+                style={{
+                  backgroundColor: "",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  transition: "0.3s",
+                  boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)",
+                }}
+              >
+                Out Of Stock
+              </button>
             )}
 
             {p.qty != 0 && (
               <div className="text-center mx-auto">
                 <button
                   className="btn btn-success"
+                  style={{
+                    backgroundColor: "#007bff",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    transition: "0.3s",
+                    boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)",
+                  }}
                   onClick={() => {
                     handleIncrement(p);
                   }}
@@ -85,6 +122,17 @@ export default function Product(props) {
                 {p.qty}
                 <button
                   className="btn btn-success"
+                  style={{
+                    backgroundColor: "#007bff",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    transition: "0.3s",
+                    boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)",
+                  }}
                   onClick={() => {
                     handleDecrement(p);
                   }}
