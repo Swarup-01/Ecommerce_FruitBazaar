@@ -8,6 +8,11 @@ export default function LoginPage(props) {
     console.log(user);
   }
 
+  function handleLoginUsingGoogle(){
+    props.onLoginUsingGoogle();
+
+  }
+
   return (
     <>
       {/* {loginStatus == "success" && (
@@ -84,9 +89,14 @@ export default function LoginPage(props) {
                     boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)",
                   }}
                 />
+                
                 {/* <button className="btn btn-danger mx-2">Ok</button>
                 <button className="btn btn-danger my-3">Clear</button> */}
               </div>
+              <div className="row my-1 p-2">
+              <button type="button" onClick={handleLoginUsingGoogle} className="btn btn-primary offset-6 col-2">Login using google</button>
+              </div>
+
             </div>
           </form>
         </div>

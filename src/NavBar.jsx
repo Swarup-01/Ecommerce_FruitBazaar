@@ -5,13 +5,22 @@ export default function NavBar(props) {
   
   let { cnt } = props;
   let { p } = props;
-  let { totalprice } = props;
+  // let { totalprice } = props;
+  //  let { cItems } = props;
+  let { cItems = [] } = props;
+  let totalprice = cItems.reduce((sum, item) => {
+    const discounted = item.mrp * (1 - item.discount / 100);
+    return sum + item.qty * discounted;
+  }, 0);
+
+
   let { view } = props;
   let { user } = props;
   let {loginStatus} = props;
   let {cartmessage} = props;
 
-  let { cItems } = props;
+
+ 
   //  console.log(cItems[0]);
   //console.log(totalprice);
 
@@ -46,10 +55,10 @@ export default function NavBar(props) {
         {/* login success message */}
         <div className="col-2">
           {loginStatus == "success" && (
-            <div className="text-center text-dark">
-              Welcome <h1>{user.UserName} </h1> start shopping...
-            </div>
-          )}
+          <div className="text-center text-dark">
+            Welcome <h1>{user.UserName}</h1> start shopping...
+          </div>
+            )} 
 
           {loginStatus == "failed" && (
             <div className="text-center text-danger">
@@ -58,9 +67,7 @@ export default function NavBar(props) {
           )}
 
           {cartmessage && (
-            <div className="text-danger text-center ">
-              {cartmessage}
-            </div>
+            <div className="text-danger text-center ">{cartmessage}</div>
           )}
         </div>
 

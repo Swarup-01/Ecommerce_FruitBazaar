@@ -10,32 +10,40 @@ export default function CartPage(props) {
     console.log(CartItems.length);
   }
 
-//  if (newProduct.qty === 0) {
-//    setCnt(cnt - 1); // Reduce cart count
-//    updatedCart = CartItems.filter((item) => item.id !== p.id); // Remove item from cart
-//  }
+  //  if (newProduct.qty === 0) {
+  //    setCnt(cnt - 1); // Reduce cart count
+  //    updatedCart = CartItems.filter((item) => item.id !== p.id); // Remove item from cart
+  //  }
 
- function handleAddToCart(p) {
-   props.onAddToCart(p);
- }
- function handleIncrement(p) {
-   props.onIncrement(p);
- }
- function handleDecrement(p) {
-   props.onDecrement(p);
-  //  if(p.qty>1){
-  //   props.onDecrement(p);
-  //  }
-  //  else{
-  //   props.onRemoveFromCart(p);
-  //  }
- }
- 
+  function handleAddToCart(p) {
+    props.onAddToCart(p);
+  }
+  function handleIncrement(p) {
+    props.onIncrement(p);
+  }
+  function handleDecrement(p) {
+    props.onDecrement(p);
+    //  if(p.qty>1){
+    //   props.onDecrement(p);
+    //  }
+    //  else{
+    //   props.onRemoveFromCart(p);
+    //  }
+  }
+  function handleProceedToBuy(){
+    props.onProceedToBuy();
+  }
+
   return (
     <>
-      <h3>You are now in cart page</h3>
       <div className="text-center" onClick={handleCartItems}>
-        {CartItems.length}
+        <h3 className="">You are now in cart page</h3>
+        Total items in cart:-{CartItems.length}
+      </div>
+      <div>
+        <button className="text-center my-2 btn btn-primary" onClick={handleProceedToBuy}>
+          Proceed To Buy
+        </button>
       </div>
 
       {
